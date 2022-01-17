@@ -1,7 +1,7 @@
 package com.monov.cloud.gateway.service;
 
 import com.monov.cloud.gateway.dto.Course;
-import com.monov.cloud.gateway.dto.StudentOrCourseIds;
+import com.monov.cloud.gateway.dto.ItemIds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -33,7 +33,7 @@ public class CourseGatewayService {
 
     }
 
-    public List<Course> findByIds(StudentOrCourseIds courseIds) {
+    public List<Course> findByIds(ItemIds courseIds) {
         return Arrays.asList(Objects.requireNonNull(restTemplate.postForObject(String.format("%s/ids/", COURSE_SERVICE_URL),
                 courseIds,
                 Course[].class)));

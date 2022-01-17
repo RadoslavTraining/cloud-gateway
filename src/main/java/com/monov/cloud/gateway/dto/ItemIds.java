@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class StudentOrCourseIds {
+public class ItemIds {
 
     private List<Long> ids;
 
