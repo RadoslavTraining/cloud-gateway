@@ -1,6 +1,6 @@
 package com.monov.cloud.gateway.service;
 
-import com.monov.cloud.gateway.dto.Course;
+import com.monov.cloud.gateway.dto.CourseDTO;
 import com.monov.cloud.gateway.dto.CourseSearchRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,30 +20,30 @@ public class CourseGatewayService {
     @Autowired
     RestTemplate restTemplate;
 
-    public List<Course> findAllCourses() {
+    public List<CourseDTO> findAllCourses() {
         return Arrays.asList(Objects.requireNonNull(restTemplate.getForObject(courseServiceUrl,
-                 Course[].class)));
+                 CourseDTO[].class)));
 
     }
 
-    public Course saveCourse(Course course) {
-        return restTemplate.postForObject(courseServiceUrl,course,Course.class);
+    public CourseDTO saveCourse(CourseDTO courseDTO) {
+        return restTemplate.postForObject(courseServiceUrl, courseDTO, CourseDTO.class);
     }
 
-    public Course findCourseById(Long courseId) {
-        return restTemplate.getForObject(String.format("%s/%d", courseServiceUrl,courseId),Course.class);
+    public CourseDTO findCourseById(Long courseId) {
+        return restTemplate.getForObject(String.format("%s/%d", courseServiceUrl,courseId), CourseDTO.class);
 
     }
 
-    public Course addStudentToCourse(Long courseId, Long studentId) {
+    public CourseDTO addStudentToCourse(Long courseId, Long studentId) {
         return restTemplate.postForObject(String.format("%s/%d/%d", courseServiceUrl,courseId,studentId),null,
-                Course.class);
+                CourseDTO.class);
     }
 
-    public List<Course> findCoursesByStudentId(Long studentId) {
+    public List<CourseDTO> findCoursesByStudentId(Long studentId) {
         CourseSearchRequest request = new CourseSearchRequest(studentId);
         return Arrays.asList(Objects.requireNonNull(restTemplate.postForObject(String.format("%s/students",
-                courseServiceUrl), request, Course[].class)));
+                courseServiceUrl), request, CourseDTO[].class)));
     }
 
     public List<Long> findStudentIdsByCourseId(Long courseId) {
