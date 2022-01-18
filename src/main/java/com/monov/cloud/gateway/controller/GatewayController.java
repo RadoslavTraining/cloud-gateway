@@ -81,17 +81,4 @@ public class GatewayController {
         return gatewayService.findStudentsByCourseId(courseId);
     }
 
-
-
-//    @GetMapping("/students/{id}/courses")
-//    public List<Course> getCoursesForStudentById(@PathVariable("id") Long id) {
-//        log.info("Inside getCoursesForStudent method of StudentController ");
-//        return gatewayService.getCoursesForStudentById(id);
-//    }
-
-//    @GetMapping("/courses/{id}/students")
-//    public List<Student> getStudentsByCourseId(@PathVariable("id") Long courseId) {
-////        return studentGatewayService.getStudentsByCourseId(courseId);
-//    }
-
 }

@@ -36,20 +36,5 @@ public class StudentGatewayService {
         return Arrays.asList(Objects.requireNonNull(restTemplate.postForObject(String.format("%s/ids", STUDENT_SERVICE_URL), itemIds,
                 Student[].class)));
     }
-//    public Student addStudentToCourse(Long courseId, Long studentId) {
-//        return restTemplate.postForObject(String.format("%s/%d/%d",STUDENT_SERVICE_URL,studentId,courseId),null,
-//                Student.class);
-//    }
-//
-//    public List<Student> getStudentsByCourseId(Long courseId) {
-//        return Arrays.asList(Objects.requireNonNull(restTemplate.getForObject(String.format("%s/course/%d", STUDENT_SERVICE_URL, courseId),
-//                Student[].class)));
-//    }
 
-//    public List<Course> getCoursesForStudentById(Long studentId) {
-//
-//        return Arrays.asList(Objects.requireNonNull(restTemplate.getForObject(String.format("%s/%d/courses",
-//                        STUDENT_SERVICE_URL, studentId),
-//                Course[].class)));
-//    }
 }
