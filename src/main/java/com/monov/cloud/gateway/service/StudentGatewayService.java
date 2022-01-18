@@ -1,7 +1,7 @@
 package com.monov.cloud.gateway.service;
 
-import com.monov.cloud.gateway.dto.ItemIds;
-import com.monov.cloud.gateway.dto.StudentDTO;
+import com.monov.commons.dto.ItemIds;
+import com.monov.commons.dto.StudentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

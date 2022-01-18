@@ -1,8 +1,8 @@
 package com.monov.cloud.gateway.service;
 
-import com.monov.cloud.gateway.dto.CourseDTO;
-import com.monov.cloud.gateway.dto.ItemIds;
-import com.monov.cloud.gateway.dto.StudentDTO;
+import com.monov.commons.dto.CourseDTO;
+import com.monov.commons.dto.ItemIds;
+import com.monov.commons.dto.StudentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;

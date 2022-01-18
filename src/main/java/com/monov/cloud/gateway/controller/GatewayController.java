@@ -1,10 +1,10 @@
 package com.monov.cloud.gateway.controller;
 
-import com.monov.cloud.gateway.dto.CourseDTO;
-import com.monov.cloud.gateway.dto.StudentDTO;
 import com.monov.cloud.gateway.service.CourseGatewayService;
 import com.monov.cloud.gateway.service.GatewayService;
 import com.monov.cloud.gateway.service.StudentGatewayService;
+import com.monov.commons.dto.CourseDTO;
+import com.monov.commons.dto.StudentDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
