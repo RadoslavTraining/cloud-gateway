@@ -1,6 +1,5 @@
 package com.monov.cloud.gateway.controller;
 
-import com.monov.cloud.gateway.data.StudentOrCourseIds;
 import com.monov.cloud.gateway.dto.Course;
 import com.monov.cloud.gateway.dto.Student;
 import com.monov.cloud.gateway.service.CourseGatewayService;
@@ -41,9 +40,16 @@ public class GatewayController {
     @GetMapping("/courses/{id}")
     public Course findCourseById(@PathVariable("id") Long courseId) {
         log.info("Inside findCourseById method in GatewayController");
-        return courseGatewayService.findById(courseId);
+        return courseGatewayService.findCourseById(courseId);
     }
 
+    // 1st requirement
+    @GetMapping("/courses/students/{studentId}")
+    public List<Course> findCoursesByStudentId(@PathVariable(name = "studentId") Long studentId) {
+        return courseGatewayService.findCoursesByStudentId(studentId);
+    }
+
+    // 3rd requirement
     @PostMapping("/courses/{courseId}/{studentId}")
     public Course addStudentToCourse(@PathVariable("courseId") Long courseId,
                                      @PathVariable("studentId") Long studentId) {
@@ -69,15 +75,23 @@ public class GatewayController {
         return studentGatewayService.findStudentById(studentId);
     }
 
-    @GetMapping("/students/{id}/courses")
-    public List<Course> getCoursesForStudentById(@PathVariable("id") Long id) {
-        log.info("Inside getCoursesForStudent method of StudentController ");
-        return gatewayService.getCoursesForStudentById(id);
+    // 2nd requirement
+    @GetMapping("/students/courses/{courseId}")
+    public List<Student> findStudentsByCourseId(@PathVariable(name = "courseId") Long courseId) {
+        return gatewayService.findStudentsByCourseId(courseId);
     }
 
-    @GetMapping("/courses/{id}/students")
-    public List<Student> getStudentsByCourseId(@PathVariable("id") Long courseId) {
-        return studentGatewayService.getStudentsByCourseId(courseId);
-    }
+
+
+//    @GetMapping("/students/{id}/courses")
+//    public List<Course> getCoursesForStudentById(@PathVariable("id") Long id) {
+//        log.info("Inside getCoursesForStudent method of StudentController ");
+//        return gatewayService.getCoursesForStudentById(id);
+//    }
+
+//    @GetMapping("/courses/{id}/students")
+//    public List<Student> getStudentsByCourseId(@PathVariable("id") Long courseId) {
+////        return studentGatewayService.getStudentsByCourseId(courseId);
+//    }
 
 }

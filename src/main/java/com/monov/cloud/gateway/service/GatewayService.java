@@ -24,13 +24,18 @@ public class GatewayService {
     CourseGatewayService courseGatewayService;
 
     public Course   addStudentToCourse(Long courseId, Long studentId) {
-        studentGatewayService.addStudentToCourse(courseId,studentId);
+//        studentGatewayService.addStudentToCourse(courseId,studentId);
         return courseGatewayService.addStudentToCourse(courseId,studentId);
     }
 
-    public List<Course> getCoursesForStudentById(Long id) {
-        Student student = studentGatewayService.findStudentById(id);
-        ItemIds courseIds = new ItemIds(student.getCourseIds());
-        return courseGatewayService.findByIds(courseIds);
+//    public List<Course> getCoursesForStudentById(Long id) {
+//        Student student = studentGatewayService.findStudentById(id);
+//        ItemIds courseIds = new ItemIds(student.getCourseIds());
+//        return courseGatewayService.findByIds(courseIds);
+//    }
+
+    public List<Student> findStudentsByCourseId(Long courseId) {
+        ItemIds studentIds = new ItemIds(courseGatewayService.findStudentIdsByCourseId(courseId));
+        return studentGatewayService.findStudentsByIds(studentIds);
     }
 }

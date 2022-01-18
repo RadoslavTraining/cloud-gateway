@@ -1,6 +1,7 @@
 package com.monov.cloud.gateway.service;
 
 import com.monov.cloud.gateway.dto.Course;
+import com.monov.cloud.gateway.dto.CourseSearchRequest;
 import com.monov.cloud.gateway.dto.ItemIds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,20 +29,31 @@ public class CourseGatewayService {
         return restTemplate.postForObject(COURSE_SERVICE_URL,course,Course.class);
     }
 
-    public Course findById(Long courseId) {
+    public Course findCourseById(Long courseId) {
         return restTemplate.getForObject(String.format("%s/%d",COURSE_SERVICE_URL,courseId),Course.class);
 
     }
 
-    public List<Course> findByIds(ItemIds courseIds) {
-        return Arrays.asList(Objects.requireNonNull(restTemplate.postForObject(String.format("%s/ids/", COURSE_SERVICE_URL),
-                courseIds,
-                Course[].class)));
-    }
+//    public List<Course> findByIds(ItemIds courseIds) {
+//        return Arrays.asList(Objects.requireNonNull(restTemplate.postForObject(String.format("%s/ids/", COURSE_SERVICE_URL),
+//                courseIds,
+//                Course[].class)));
+//    }
 
 
     public Course addStudentToCourse(Long courseId, Long studentId) {
         return restTemplate.postForObject(String.format("%s/%d/%d",COURSE_SERVICE_URL,courseId,studentId),null,
                 Course.class);
+    }
+
+    public List<Course> findCoursesByStudentId(Long studentId) {
+        CourseSearchRequest request = new CourseSearchRequest(studentId);
+        return Arrays.asList(Objects.requireNonNull(restTemplate.postForObject(String.format("%s/students",
+                        COURSE_SERVICE_URL), request, Course[].class)));
+    }
+
+    public List<Long> findStudentIdsByCourseId(Long courseId) {
+        return  Arrays.asList(Objects.requireNonNull(restTemplate.getForObject(String.format("%s/students/%d", COURSE_SERVICE_URL, courseId),
+                Long[].class)));
     }
 }
