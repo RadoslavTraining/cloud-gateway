@@ -23,7 +23,7 @@
 hs_err_pid*
 
 ###
-
+*.bak
 *#
 *.iml
 *.ipr
@@ -67,3 +67,4 @@ secrets.yml
 .gradletasknamecache
 .sts4-cache
 *.bak
+.idea/compiler.xml
