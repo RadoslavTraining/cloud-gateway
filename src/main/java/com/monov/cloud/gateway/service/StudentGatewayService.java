@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public class StudentGatewayService {
 
-    @Value("${studentservice.url}")
+    @Value("${student-service.url}")
     private String studentServiceUrl;
 
     @Autowired

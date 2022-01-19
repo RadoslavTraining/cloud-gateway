@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 public class CourseGatewayService {
-    @Value("${courseservice.url}")
+    @Value("${course-service.url}")
     private String courseServiceUrl;
 
 
