@@ -1,5 +1,6 @@
 package com.monov.cloud.gateway.controller;
 
+import com.monov.cloud.gateway.dto.CourseWithStudentDTO;
 import com.monov.cloud.gateway.service.CourseGatewayService;
 import com.monov.cloud.gateway.service.GatewayService;
 import com.monov.cloud.gateway.service.StudentGatewayService;
@@ -42,17 +43,15 @@ public class GatewayController {
         log.info("Inside findCourseById method in GatewayController");
         return courseGatewayService.findCourseById(courseId);
     }
-// TUKA RABOTI GORE
-    // 1st requirement
+
     @GetMapping("/courses/students/{studentId}")
     public ResponseEntity<List<CourseDTO>> findCoursesByStudentId(@PathVariable(name = "studentId") Long studentId) {
         return courseGatewayService.findCoursesByStudentId(studentId);
     }
 
-    // 3rd requirement
     @PostMapping("/courses/{courseId}/{studentId}")
-    public ResponseEntity<CourseDTO> addStudentToCourse(@PathVariable("courseId") Long courseId,
-                                        @PathVariable("studentId") Long studentId) {
+    public ResponseEntity<CourseWithStudentDTO> addStudentToCourse(@PathVariable("courseId") Long courseId,
+                                                                   @PathVariable("studentId") Long studentId) {
         log.info("Inside addStudentToCourse method in GatewayController");
         return gatewayService.addStudentToCourse(courseId,studentId);
     }
@@ -75,7 +74,6 @@ public class GatewayController {
         return studentGatewayService.findStudentById(studentId);
     }
 
-    // 2nd requirement
     @GetMapping("/students/courses/{courseId}")
     public ResponseEntity<List<StudentDTO>> findStudentsByCourseId(@PathVariable(name = "courseId") Long courseId) {
         return gatewayService.findStudentsByCourseId(courseId);
