@@ -1,8 +1,9 @@
 package com.monov.cloud.gateway.service;
 
-import com.monov.cloud.gateway.dto.Course;
-import com.monov.cloud.gateway.dto.Student;
+import com.monov.commons.dto.ItemIds;
+import com.monov.commons.dto.StudentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,39 +14,29 @@ import java.util.Objects;
 @Service
 public class StudentGatewayService {
 
-    public static final String STUDENT_SERVICE_URL = "http://localhost:9001/students";
+    @Value("${studentservice.url}")
+    private String studentServiceUrl;
 
     @Autowired
     private RestTemplate restTemplate;
 
-    public List<Student> findAllStudents() {
-        return Arrays.asList(Objects.requireNonNull(restTemplate.getForObject(STUDENT_SERVICE_URL, Student[].class)));
+    public List<StudentDTO> findAllStudents() {
+        return Arrays.asList(Objects.requireNonNull(restTemplate.getForObject(studentServiceUrl, StudentDTO[].class)));
     }
 
-    public Student saveStudent(Student student) {
-        return restTemplate.postForObject(STUDENT_SERVICE_URL,student,Student.class);
+    public StudentDTO saveStudent(StudentDTO studentDTO) {
+        return restTemplate.postForObject(studentServiceUrl, studentDTO, StudentDTO.class);
     }
 
 
-    public Student findStudentById(Long studentId) {
-        return restTemplate.getForObject(String.format("%s/%d",STUDENT_SERVICE_URL,studentId), Student.class);
+    public StudentDTO findStudentById(Long studentId) {
+        return restTemplate.getForObject(String.format("%s/%d", studentServiceUrl,studentId), StudentDTO.class);
 
     }
 
-    public Student addStudentToCourse(Long courseId, Long studentId) {
-        return restTemplate.postForObject(String.format("%s/%d/%d",STUDENT_SERVICE_URL,studentId,courseId),null,
-                Student.class);
+    public List<StudentDTO> findStudentsByIds(ItemIds itemIds) {
+        return Arrays.asList(Objects.requireNonNull(restTemplate.postForObject(String.format("%s/ids", studentServiceUrl), itemIds,
+                StudentDTO[].class)));
     }
 
-    public List<Student> getStudentsByCourseId(Long courseId) {
-        return Arrays.asList(Objects.requireNonNull(restTemplate.getForObject(String.format("%s/course/%d", STUDENT_SERVICE_URL, courseId),
-                Student[].class)));
-    }
-
-//    public List<Course> getCoursesForStudentById(Long studentId) {
-//
-//        return Arrays.asList(Objects.requireNonNull(restTemplate.getForObject(String.format("%s/%d/courses",
-//                        STUDENT_SERVICE_URL, studentId),
-//                Course[].class)));
-//    }
 }

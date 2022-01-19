@@ -13,3 +13,8 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
   instance:
     hostname: localhost
+
+studentservice:
+  url: http://localhost:9001/students
+courseservice:
+  url: http://localhost:9002/courses

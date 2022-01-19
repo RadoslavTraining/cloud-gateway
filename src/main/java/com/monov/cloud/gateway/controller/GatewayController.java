@@ -1,11 +1,10 @@
 package com.monov.cloud.gateway.controller;
 
-import com.monov.cloud.gateway.data.StudentOrCourseIds;
-import com.monov.cloud.gateway.dto.Course;
-import com.monov.cloud.gateway.dto.Student;
 import com.monov.cloud.gateway.service.CourseGatewayService;
 import com.monov.cloud.gateway.service.GatewayService;
 import com.monov.cloud.gateway.service.StudentGatewayService;
+import com.monov.commons.dto.CourseDTO;
+import com.monov.commons.dto.StudentDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,57 +26,59 @@ public class GatewayController {
             
     
     @GetMapping("/courses")
-    public List<Course> getAllCourses() {
+    public List<CourseDTO> getAllCourses() {
         log.info("Inside getAllCourses method in GatewayController");
         return  courseGatewayService.findAllCourses();
     }
 
     @PostMapping("/courses")
-    public Course saveCourse(@RequestBody Course course) {
+    public CourseDTO saveCourse(@RequestBody CourseDTO courseDTO) {
         log.info("Inside saveCourse method in GatewayController");
-        return courseGatewayService.saveCourse(course);
+        return courseGatewayService.saveCourse(courseDTO);
     }
 
     @GetMapping("/courses/{id}")
-    public Course findCourseById(@PathVariable("id") Long courseId) {
+    public CourseDTO findCourseById(@PathVariable("id") Long courseId) {
         log.info("Inside findCourseById method in GatewayController");
-        return courseGatewayService.findById(courseId);
+        return courseGatewayService.findCourseById(courseId);
     }
 
+    // 1st requirement
+    @GetMapping("/courses/students/{studentId}")
+    public List<CourseDTO> findCoursesByStudentId(@PathVariable(name = "studentId") Long studentId) {
+        return courseGatewayService.findCoursesByStudentId(studentId);
+    }
+
+    // 3rd requirement
     @PostMapping("/courses/{courseId}/{studentId}")
-    public Course addStudentToCourse(@PathVariable("courseId") Long courseId,
-                                     @PathVariable("studentId") Long studentId) {
+    public CourseDTO addStudentToCourse(@PathVariable("courseId") Long courseId,
+                                        @PathVariable("studentId") Long studentId) {
         log.info("Inside addStudentToCourse method in GatewayController");
         return gatewayService.addStudentToCourse(courseId,studentId);
     }
 
     @GetMapping("/students")
-    public List<Student> findAllStudents() {
+    public List<StudentDTO> findAllStudents() {
         log.info("Inside findAllStudents method of StudentController ");
         return studentGatewayService.findAllStudents();
     }
 
     @PostMapping("/students")
-    public Student saveStudent(@RequestBody Student student) {
+    public StudentDTO saveStudent(@RequestBody StudentDTO studentDTO) {
         log.info("Inside saveStudent method of StudentController ");
-        return studentGatewayService.saveStudent(student);
+        return studentGatewayService.saveStudent(studentDTO);
     }
 
     @GetMapping("/students/{id}")
-    public Student findStudentById(@PathVariable("id") Long studentId) {
+    public StudentDTO findStudentById(@PathVariable("id") Long studentId) {
         log.info("Inside findStudentById method of StudentController ");
         return studentGatewayService.findStudentById(studentId);
     }
 
-    @GetMapping("/students/{id}/courses")
-    public List<Course> getCoursesForStudentById(@PathVariable("id") Long id) {
-        log.info("Inside getCoursesForStudent method of StudentController ");
-        return gatewayService.getCoursesForStudentById(id);
-    }
-
-    @GetMapping("/courses/{id}/students")
-    public List<Student> getStudentsByCourseId(@PathVariable("id") Long courseId) {
-        return studentGatewayService.getStudentsByCourseId(courseId);
+    // 2nd requirement
+    @GetMapping("/students/courses/{courseId}")
+    public List<StudentDTO> findStudentsByCourseId(@PathVariable(name = "courseId") Long courseId) {
+        return gatewayService.findStudentsByCourseId(courseId);
     }
 
 }
