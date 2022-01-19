@@ -14,10 +14,6 @@ import java.util.List;
 @Service
 public class GatewayService {
 
-
-    @Autowired
-    RestTemplate restTemplate;
-
     @Autowired
     StudentGatewayService studentGatewayService;
 

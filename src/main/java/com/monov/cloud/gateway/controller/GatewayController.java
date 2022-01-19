@@ -1,6 +1,5 @@
 package com.monov.cloud.gateway.controller;
 
-import com.monov.cloud.gateway.response.StudentResponseHandler;
 import com.monov.cloud.gateway.service.CourseGatewayService;
 import com.monov.cloud.gateway.service.GatewayService;
 import com.monov.cloud.gateway.service.StudentGatewayService;
@@ -8,11 +7,9 @@ import com.monov.commons.dto.CourseDTO;
 import com.monov.commons.dto.StudentDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Slf4j

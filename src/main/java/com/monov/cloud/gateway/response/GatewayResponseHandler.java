@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-public class StudentResponseHandler {
+public class GatewayResponseHandler {
     public static ResponseEntity<StudentDTO> generateSuccessResponse(HttpStatus status,
                                                                          StudentDTO response) {
         return new ResponseEntity<>(response,status);
