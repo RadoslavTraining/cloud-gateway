@@ -10,11 +10,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class StudentCourseResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
-//    @ExceptionHandler(ItemNotFoundException.class)
-//    public ResponseEntity<String> handleNoItemFoundException() {
-//        return GatewayResponseHandler.generateErrorResponse("No results found", HttpStatus.OK);
-//    }
-
     @ExceptionHandler(HttpClientErrorException.class)
     public ResponseEntity<String> handleHttpClientErrorException(HttpClientErrorException ex) {
         return GatewayResponseHandler.generateErrorResponse( ex.getResponseBodyAsString(),
