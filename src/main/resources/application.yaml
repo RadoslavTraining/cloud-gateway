@@ -14,7 +14,7 @@ eureka:
   instance:
     hostname: localhost
 
-studentservice:
+student-service:
   url: http://localhost:9001/students
-courseservice:
+course-service:
   url: http://localhost:9002/courses
