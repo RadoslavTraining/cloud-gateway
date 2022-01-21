@@ -46,7 +46,7 @@ public class GatewayController {
 
     @GetMapping("/courses/students/{studentId}")
     public ResponseEntity<List<CourseDTO>> findCoursesByStudentId(@PathVariable(name = "studentId") Long studentId) {
-        return courseGatewayService.findCoursesByStudentId(studentId);
+        return gatewayService.findCoursesByStudentId(studentId);
     }
 
     @PostMapping("/courses/{courseId}/{studentId}")
