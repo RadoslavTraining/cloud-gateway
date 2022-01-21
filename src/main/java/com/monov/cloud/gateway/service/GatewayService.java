@@ -35,4 +35,9 @@ public class GatewayService {
 
         return studentGatewayService.findStudentsByIds(studentIds);
     }
+
+    public ResponseEntity<List<CourseDTO>> findCoursesByStudentId(Long studentId) {
+        studentGatewayService.findStudentById(studentId);
+        return courseGatewayService.findCoursesByStudentId(studentId);
+    }
 }
