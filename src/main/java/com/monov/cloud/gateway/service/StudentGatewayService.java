@@ -1,6 +1,6 @@
 package com.monov.cloud.gateway.service;
 
-import com.monov.commons.dto.ItemIds;
+import com.monov.commons.dto.ItemIdsDTO;
 import com.monov.commons.dto.StudentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,9 +43,9 @@ public class StudentGatewayService {
                 HttpMethod.GET,null,responseType);
     }
 
-    public ResponseEntity<List<StudentDTO>> findStudentsByIds(ItemIds itemIds) {
+    public ResponseEntity<List<StudentDTO>> findStudentsByIds(ItemIdsDTO itemIds) {
         ParameterizedTypeReference<List<StudentDTO>> responseType = new ParameterizedTypeReference<>() {};
-        HttpEntity<ItemIds> entity = new HttpEntity<>(itemIds);
+        HttpEntity<ItemIdsDTO> entity = new HttpEntity<>(itemIds);
 
         return restTemplate.exchange(String.format("%s/ids", studentServiceUrl),HttpMethod.POST,entity,responseType);
     }

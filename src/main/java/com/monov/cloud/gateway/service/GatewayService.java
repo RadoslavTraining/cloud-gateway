@@ -2,7 +2,7 @@ package com.monov.cloud.gateway.service;
 
 import com.monov.cloud.gateway.dto.CourseWithStudentDTO;
 import com.monov.commons.dto.CourseDTO;
-import com.monov.commons.dto.ItemIds;
+import com.monov.commons.dto.ItemIdsDTO;
 import com.monov.commons.dto.StudentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,7 +31,7 @@ public class GatewayService {
 
     public ResponseEntity<List<StudentDTO>> findStudentsByCourseId(Long courseId) {
         courseGatewayService.findCourseById(courseId);
-        ItemIds studentIds = new ItemIds(courseGatewayService.findStudentIdsByCourseId(courseId).getBody());
+        ItemIdsDTO studentIds = new ItemIdsDTO(courseGatewayService.findStudentIdsByCourseId(courseId).getBody());
 
         return studentGatewayService.findStudentsByIds(studentIds);
     }
