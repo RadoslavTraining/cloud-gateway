@@ -1,0 +1,11 @@
+server:
+  port: 9191
+
+spring:
+  application:
+    name: API-GATEWAY
+
+student-service:
+  url: http://localhost:9001/students
+course-service:
+  url: http://localhost:9002/courses

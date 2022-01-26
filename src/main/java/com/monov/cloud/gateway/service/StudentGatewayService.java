@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
+
 @Service
 public class StudentGatewayService {
 
@@ -36,10 +37,10 @@ public class StudentGatewayService {
     }
 
 
-    public ResponseEntity<StudentDTO> findStudentById(Long studentId) {
+    public ResponseEntity<StudentDTO> findStudentById(String studentId) {
         ParameterizedTypeReference<StudentDTO> responseType = new ParameterizedTypeReference<>() {};
 
-        return restTemplate.exchange(String.format("%s/%d", studentServiceUrl,studentId),
+        return restTemplate.exchange(String.format("%s/%s", studentServiceUrl,studentId),
                 HttpMethod.GET,null,responseType);
     }
 
