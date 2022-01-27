@@ -83,9 +83,4 @@ public class GatewayController {
         return gatewayService.findStudentsByCourseId(courseId);
     }
 
-    @GetMapping("/test/{str}")
-    public String abc (@PathVariable(name = "str") String str) {
-        String str2 = ("\"\"\"\"sadasda");
-        return str2;
-    }
 }
