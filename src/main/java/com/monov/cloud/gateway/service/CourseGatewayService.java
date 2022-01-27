@@ -1,6 +1,7 @@
 package com.monov.cloud.gateway.service;
 
 import com.monov.commons.dto.CourseDTO;
+import com.monov.commons.dto.CourseSearchRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -36,33 +37,36 @@ public class CourseGatewayService {
                 HttpMethod.POST,request,responseType);
     }
 
-    public ResponseEntity<CourseDTO> findCourseById(Long courseId) {
+    public ResponseEntity<CourseDTO> findCourseById(String courseId) {
         ParameterizedTypeReference<CourseDTO> responseType = new ParameterizedTypeReference<>() {};
 
-        return restTemplate.exchange(String.format("%s/%d", courseServiceUrl,courseId),
+        return restTemplate.exchange(String.format("%s/%s", courseServiceUrl,courseId),
                 HttpMethod.GET,null,responseType);
     }
 
-    public ResponseEntity<CourseDTO> addStudentToCourse(Long courseId, Long studentId) {
+    public ResponseEntity<CourseDTO> addStudentToCourse(String courseId, String studentId) {
         ParameterizedTypeReference<CourseDTO> responseType = new ParameterizedTypeReference<>() {};
 
-        return restTemplate.exchange(String.format("%s/%d/%d", courseServiceUrl,courseId,studentId),
+        return restTemplate.exchange(String.format("%s/%s/%s", courseServiceUrl,courseId,studentId),
                 HttpMethod.POST,null,responseType);
     }
 
-    public ResponseEntity<List<CourseDTO>> findCoursesByStudentId(Long studentId) {
+    public ResponseEntity<List<CourseDTO>> findCoursesByStudentId(String studentId) {
         ParameterizedTypeReference<List<CourseDTO>> responseType = new ParameterizedTypeReference<>() {};
-        HttpEntity<Long> entity = new HttpEntity<>(studentId);
+        CourseSearchRequestDTO searchRequestDTO = new CourseSearchRequestDTO();
+        searchRequestDTO.setStudentId(studentId);
+        HttpEntity<CourseSearchRequestDTO> entity = new HttpEntity<>(searchRequestDTO);
 
         return restTemplate.exchange(String.format("%s/students",
                 courseServiceUrl),HttpMethod.POST,entity,responseType);
     }
 
-    public ResponseEntity<List<Long>> findStudentIdsByCourseId(Long courseId) {
-        ParameterizedTypeReference<List<Long>> responseType = new ParameterizedTypeReference<>() {};
-        HttpEntity<Long> entity = new HttpEntity<>(courseId);
+    public ResponseEntity<List<String>> findStudentIdsByCourseId(String courseId) {
+        ParameterizedTypeReference<List<String>> responseType = new ParameterizedTypeReference<>() {};
+        HttpEntity<String> entity = new HttpEntity<>(courseId);
 
-        return restTemplate.exchange(String.format("%s/students/%d", courseServiceUrl, courseId),HttpMethod.GET,
+        return restTemplate.exchange(String.format("%s/students/%s", courseServiceUrl, courseId),
+                HttpMethod.GET,
                 entity,responseType);
     }
 

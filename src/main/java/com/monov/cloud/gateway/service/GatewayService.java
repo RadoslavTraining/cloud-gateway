@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -22,21 +21,21 @@ public class GatewayService {
     @Autowired
     CourseGatewayService courseGatewayService;
 
-    public ResponseEntity<CourseWithStudentDTO> addStudentToCourse(Long courseId, Long studentId) {
+    public ResponseEntity<CourseWithStudentDTO> addStudentToCourse(String courseId, String studentId) {
         StudentDTO studentDTO = studentGatewayService.findStudentById(studentId).getBody();
         CourseDTO courseDTO = courseGatewayService.addStudentToCourse(courseId,studentId).getBody();
 
         return new ResponseEntity<>(new CourseWithStudentDTO(courseDTO, studentDTO),HttpStatus.OK);
     }
 
-    public ResponseEntity<List<StudentDTO>> findStudentsByCourseId(Long courseId) {
+    public ResponseEntity<List<StudentDTO>> findStudentsByCourseId(String courseId) {
         courseGatewayService.findCourseById(courseId);
         ItemIdsDTO studentIds = new ItemIdsDTO(courseGatewayService.findStudentIdsByCourseId(courseId).getBody());
 
         return studentGatewayService.findStudentsByIds(studentIds);
     }
 
-    public ResponseEntity<List<CourseDTO>> findCoursesByStudentId(Long studentId) {
+    public ResponseEntity<List<CourseDTO>> findCoursesByStudentId(String studentId) {
         studentGatewayService.findStudentById(studentId);
         return courseGatewayService.findCoursesByStudentId(studentId);
     }
