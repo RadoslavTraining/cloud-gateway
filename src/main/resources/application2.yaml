@@ -1,0 +1,7 @@
+
+studentservice:
+  username: ssusername
+  pass: sspass
+courseservice:
+  username: csusername
+  pass: cspass

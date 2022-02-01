@@ -3,6 +3,7 @@ package com.monov.cloud.gateway.security;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
@@ -12,7 +13,13 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-//@PropertySource("spring.config.location = classpath:application-yaml")
+@PropertySource(
+        {
+                "classpath:application.yaml",
+                "file:src/application2.properties"
+        }
+)
+
 @Service
 public class RequestInterceptor implements ClientHttpRequestInterceptor {
 
@@ -22,10 +29,17 @@ public class RequestInterceptor implements ClientHttpRequestInterceptor {
     @Value("${course-service.url}")
     private String courseServiceUrl;
 
-    private String studentServiceUsername = "ssusername";
-    private String studentServicePass = "sspass";
-    private String courseServiceUsername = "rado";
-    private String courseServicePass = "monov";
+    @Value("${studentservice.username}")
+    private String studentServiceUsername;
+
+    @Value("${studentservice.pass}")
+    private String studentServicePass;
+
+//    @Value("${course-service.username}")
+    private String courseServiceUsername;
+
+//    @Value("${course-service.pass}")
+    private String courseServicePass;
 
 
     @Override
