@@ -11,7 +11,3 @@ student-service:
   url: http://localhost:9001/students
 course-service:
   url: http://localhost:9002/courses
-
-#jasypt:
-#  encryptor:
-#    password: password
