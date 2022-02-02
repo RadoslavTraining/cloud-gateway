@@ -2,24 +2,21 @@ package com.monov.cloud.gateway.security;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-@PropertySource(
-        {
-                "classpath:application.yaml",
-                "file:src/application2.properties"
-        }
-)
-
+@PropertySource("classpath:application.yaml")
+@PropertySource("classpath:application.properties")
 @Service
 public class RequestInterceptor implements ClientHttpRequestInterceptor {
 
@@ -29,18 +26,20 @@ public class RequestInterceptor implements ClientHttpRequestInterceptor {
     @Value("${course-service.url}")
     private String courseServiceUrl;
 
-    @Value("${studentservice.username}")
+    @Value("${student-service.username}")
     private String studentServiceUsername;
 
-    @Value("${studentservice.pass}")
+    @Value("${student-service.pass}")
     private String studentServicePass;
 
-//    @Value("${course-service.username}")
+    @Value("${course-service.username}")
     private String courseServiceUsername;
 
-//    @Value("${course-service.pass}")
+    @Value("${course-service.pass}")
     private String courseServicePass;
 
+//    @Value("${encpass}")
+//    private String encpass;
 
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
@@ -59,7 +58,6 @@ public class RequestInterceptor implements ClientHttpRequestInterceptor {
         String auth = username + ":" + password;
         byte[] encodedAuth = Base64.encodeBase64(
                 auth.getBytes(Charset.forName("US-ASCII")));
-        String authHeader = "Basic " + new String(encodedAuth);
-        return authHeader;
+        return "Basic " + new String(encodedAuth);
     }
 }
