@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: API-GATEWAY
+  main:
+    allow-bean-definition-overriding: true
 
 student-service:
   url: http://localhost:9001/students
